@@ -1,0 +1,21 @@
+{
+  "name": "face-detecting-app",
+  "version": "0.1.0",
+  "main" : "script.js",
+  "private": true,
+  "scripts": {
+   
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {
+    "node-mon": "^1.12.7"
+  },
+  "description": ""
+}
+
