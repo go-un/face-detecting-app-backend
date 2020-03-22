@@ -1,11 +1,9 @@
 {
   "name": "face-detecting-app-backend",
   "version": "0.1.0",
-  "main" : "script.js",
+  "main": "script.js",
   "private": true,
-  "scripts": {
-   
-  },
+  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -14,8 +12,7 @@
     "express": "^4.16.2"
   },
   "devDependencies": {
-    "node-mon": "^1.12.7"
+    "nodemon": "^1.12.7"
   },
   "description": ""
 }
-
