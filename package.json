@@ -1,5 +1,5 @@
 {
-  "name": "face-detecting-app",
+  "name": "face-detecting-app-backend",
   "version": "0.1.0",
   "main" : "script.js",
   "private": true,
