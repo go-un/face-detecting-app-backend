@@ -1,13 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const bcrypt = require('bcrypt');
+const cors = require('cors');
+
+const saltRounds = 10;
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
 
 const database = {
   users: [
     {
-      id: '1',
+      id: '0',
       name: 'Bravo',
       email: 'bravo@gmail.com',
       password: 'meatlover',
@@ -15,12 +20,19 @@ const database = {
       joined: new Date()
     },
     {
-      id: '2',
+      id: '1',
       name: 'Marie',
       email: 'marie@gmail.com',
       password: 'anchovies',
       entries: 0,
       joined: new Date()
+    }
+  ],
+  login: [
+    {
+      id: '1',
+      email: 'bravo@gmail.com',
+      hash: 'meatlover'
     }
   ]
 }
@@ -30,17 +42,45 @@ app.get('/', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-  if(req.body.email === database.users[0].email && req.body.password === database.users[0].password) {
-    res.json("success");
-  } else {
-    res.status(400).json('Error log in');
+  const { email, password } = req.body;
+  let userFound = false;
+  let userPasswordMatch = false;
+  let index = undefined;
+
+  // bcrypt.compare('Rhs', '$2b$10$y1.p46T24Tl90PdboSoL0e4bC5vv.l2ngfOL2vUYXKRH5sTVv55I2').then(function(result) {
+  //   console.log(result);
+  // });
+
+  database.users.map((user, i) => {
+    if(user.email === email) {
+      userFound = true;
+      if(user.password === password) {
+        userPasswordMatch = true;
+        index = i;
+      } else {
+        return res.status(404).json('Wrong Password 😟');
+      }
+    } 
+  });
+
+  if(userFound && userPasswordMatch) {
+    return res.json(database.users[index]);
+  }
+
+  if(!userFound){
+    return res.status(404).json('No such user 😕');
   }
 });
 
 app.post('/register', (req, res) => {
   const { name, email, password } = req.body;  
+
+  // bcrypt.hash(password, saltRounds).then(function(hash) {
+  //   console.log(hash);
+  // });
+
   database.users.push({
-    id: '3',
+    id: database.users.length,
     name: name,
     email: email,
     password: password,
@@ -83,8 +123,8 @@ app.put('/image', (req, res) => {
   }
 });
 
-app.listen('3000', () => {
-  console.log('app is running on port 3000!');
+app.listen('3001', () => {
+  console.log('app is running on port 3001!');
 });
 
 /*
